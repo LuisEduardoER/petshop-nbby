@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Inderjeet Singh
  */
 public class DefaultControllerAction implements ControllerAction {
-    
+
     // We use @SuppressWarnings annotation to supress the following kind of warning:
     // petstore/src/java/com/sun/javaee/blueprints/petstore/controller/actions/DefaultControllerAction.java:64: warning: [unchecked] unchecked cast
     // found   : java.lang.Object
@@ -36,18 +36,18 @@ public class DefaultControllerAction implements ControllerAction {
     // But since we are expecting a generic version (for example, HashMap<String, StringBuffer>), we need to
     // typecast the result appropriately. However, since generics information is lost at the runtime,
     // there is no way to avoid a warning. Hence we use SuppressWarnings in this case.
-    
+
     private static String CACHE = "controller_cache";
     private static String CACHE_TIMES = "controller_cache_times";
     private final ServletContext context;
     public DefaultControllerAction(ServletContext context) {
         this.context = context;
     }
-    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String command = request.getParameter("command");
         //if(bDebug) System.out.println("ControllerServlet : command=" + command);
-        
+
         if ("content".equals(command)) {
             String target = request.getParameter("target");
             //if(bDebug) System.out.println("ControllerServlet : target=" + target);
@@ -59,8 +59,8 @@ public class DefaultControllerAction implements ControllerAction {
             out.close();
         }
     }
-    
-    @SuppressWarnings("unchecked") 
+
+    @SuppressWarnings("unchecked")
     public StringBuffer getResource(String resource, boolean fromWeb, boolean cacheContent) {
         try {
             URL url = fromWeb ? context.getResource(resource) : ControllerServlet.class.getResource(resource);
@@ -99,7 +99,7 @@ public class DefaultControllerAction implements ControllerAction {
         }
         return null;
     }
-    
+
     private StringBuffer getResource(InputStream stream) {
         StringBuffer buffer = new StringBuffer();
         try {
