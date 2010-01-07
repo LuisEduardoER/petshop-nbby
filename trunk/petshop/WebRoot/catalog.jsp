@@ -10,6 +10,7 @@ $Id: catalog.jsp,v 1.22 2007/03/16 21:42:03 basler Exp $ --%>
 <%@taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@taglib prefix="ui" uri="http://java.sun.com/blueprints/ui" %>
+<html>
 <body>
 <jsp:include page="banner.jsp" />
 <script type="text/javascript">
@@ -44,14 +45,15 @@ $Id: catalog.jsp,v 1.22 2007/03/16 21:42:03 basler Exp $ --%>
                             <div id="infopane" class="infopane">
                                 <table class="infopaneTable">
                                     <tr>
-                                        <td id="infopaneName" class="infopaneTitle">
-                                        </td>
+                                        <td id="infopaneName" class="infopaneTitle"></td>
                                         <td id="infopaneRating" class="infopaneRating">
                                             <f:view>
                                             <ui:rating id="rating" maxGrade="5" includeNotInterested="false" includeClear="false" 
                                                        hoverTexts="#{RatingBean.ratingText}" notInterestedHoverText="Not Interested" clearHoverText="Clear Rating"
                                                        grade="#{RatingBean.grade}"/>
-                                        <f:verbatim></td><td id="infopanePrice" class="infopanePrice"></td><td id="infopanePayPal" class="infopanePayPal"></f:verbatim>
+                                        <f:verbatim></td>
+										<td id="infopanePrice" class="infopanePrice"></td>
+										<td id="infopanePayPal" class="infopanePayPal"></f:verbatim>
                                             <ui:buyNow business="donate@animalfoundation.com" id="buyNow1" itemName="Buy Item One"
                                                        amount="100.00" quantity="1" type="BuyNow" postData="#{PayPalBean.postData}" target="paypal"/>    
                                             </f:view>
@@ -77,6 +79,7 @@ $Id: catalog.jsp,v 1.22 2007/03/16 21:42:03 basler Exp $ --%>
                         </td>                    
                     </tr>
                 </table>
+				</div>
             </td>
             <td style="vertical-align:top; width:300px; text-align:right;">
                 <div id="downloadAds">
@@ -85,7 +88,6 @@ $Id: catalog.jsp,v 1.22 2007/03/16 21:42:03 basler Exp $ --%>
             </td>
         </tr>
     </table>
-    </div>
     <div id="status" style="text-align:left"></div> <div id="status_2"></div>
     <div id="dstatus"></div>
     <div id="injection_point"></div>

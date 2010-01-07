@@ -62,7 +62,6 @@ $Id: banner.jsp,v 1.28 2006/12/19 20:23:53 yutayoshida Exp $ --%>
     <a class="menuLink" onmouseover="this.className='menuLinkHover';" onmouseout="this.className='menuLink';" href="${pageContext.request.contextPath}/faces/index.jsp">Home</a>
   </td>
   </tr>
- </tr>
   <tr bgcolor="gray">
   <td id="menubar" align="left" colspan="3" height="25" >
     <div id="rss-bar">
