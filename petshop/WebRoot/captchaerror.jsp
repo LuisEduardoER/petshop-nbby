@@ -15,9 +15,7 @@ $Id: captchaerror.jsp,v 1.1 2006/02/17 03:04:22 yutayoshida Exp $ --%>
     </head>
     <body>
 
-    <h1>Please input the right captcha string -- <a href="./">Try again</a>
-    
+    	<h1>Please input the right captcha string -- <a href="./">Try again</a>
 
-    
     </body>
 </html>
