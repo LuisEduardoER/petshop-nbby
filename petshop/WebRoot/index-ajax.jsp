@@ -14,7 +14,7 @@ try {
              int cc=((Tag)two).getTag().compareTo(((Tag)one).getTag());
              return (cc < 0 ? 1 : cc > 0 ? -1 : 0);
         }
-    });    
+    });
 %>
 
 <html>
@@ -28,7 +28,7 @@ try {
         </script>
     </head>
     <body>
-        
+
         <jsp:include page="banner.jsp" />
         <script>
             dojo.require("dojo.widget.FisheyeList");
@@ -39,9 +39,7 @@ try {
 
             function browse(category) {
                 window.location.href="${pageContext.request.contextPath}/faces/catalog.jsp?catid=" + category;
-            
             }
-            
 
             function debugProperties(namex) {
                 var listx="";
@@ -51,8 +49,8 @@ try {
                 }
                 //document.write(listx);
                 alert(listx);
-            }            
-            
+            }
+
             function checkAdPage() {
                 var bindArgs = {
                     //url: "https://blueprints.dev.java.net/petstore/downloadAd.json",
@@ -61,27 +59,27 @@ try {
                     transport: "ScriptSrcTransport",
                     jsonParamName: "callback",
                     mimetype: "text/json",
-                    load: function(type, data, event, kwArgs) { 
-                        /* type will be "load", data will be response data,  event will null, and kwArgs are the keyword arguments used in the dojo.io.bind call. */ 
+                    load: function(type, data, event, kwArgs) {
+                        /* type will be "load", data will be response data,  event will null, and kwArgs are the keyword arguments used in the dojo.io.bind call. */
                         alert("load = " + data.ResultSet.totalResultsAvailable);
                         //debugProperties(data);
                         //document.getElementById("downloadAds").innerHTML=data.downloadxx;
 
-                        
+
                     },
-                    error: function(type, data, event, kwArgs) { 
-                        /* type will be "error", data will be response data,  event will null, and kwArgs are the keyword arguments used in the dojo.io.bind call. */ 
+                    error: function(type, data, event, kwArgs) {
+                        /* type will be "error", data will be response data,  event will null, and kwArgs are the keyword arguments used in the dojo.io.bind call. */
                         alert("error");
                     },
-                    timeout: function() { 
+                    timeout: function() {
                         /* Called if there is a timeout */
                         alert("timeout");
                     },
                     timeoutSeconds: 10};
                 // dispatch the request
-                dojo.io.bind(bindArgs);      
+                dojo.io.bind(bindArgs);
             }
-            
+
             function callback() {
                 alert("callback");
             }
@@ -96,23 +94,23 @@ try {
                         document.getElementById("downloadAds").innerHTML=data.downloadxx;
                     }
                 }
-            }            
+            }
 
             function testit() {
                 testx={download:"test", textx:"it"};
                 alert("test = " + testx.download);
             }
-            
-            
+
+
         </script>
             <span onclick="checkAdPage();">test it</span>
-        
-        
+
+
             <table bgcolor="white">
                 <tr>
                     <td valign="top">
                         <div class="outerbar" style="width: 200px">
-                            
+
                             <div dojoType="FisheyeList"
                                  itemWidth="170" itemHeight="50"
                                  itemMaxWidth="340" itemMaxHeight="100"
@@ -122,28 +120,28 @@ try {
                                  attachEdge="top"
                                  labelEdge="bottom"
                                  enableCrappySvgSupport="false">
-                                
-                                <div dojoType="FisheyeListItem" onClick="browse('Dogs');" 
+
+                                <div dojoType="FisheyeListItem" onClick="browse('Dogs');"
                                      iconsrc="${pageContext.request.contextPath}/images/dogs_icon.gif">
                                 </div>
-                                
+
                                 <div dojoType="FisheyeListItem" onClick="browse('Cats');"
                                      iconsrc="${pageContext.request.contextPath}/images/cats_icon.gif">
                                 </div>
-                                
+
                                 <div dojoType="FisheyeListItem" onClick="browse('Birds');"
                                      iconsrc="${pageContext.request.contextPath}/images/birds_icon.gif">
                                 </div>
-                                
+
                                 <div dojoType="FisheyeListItem" onClick="browse('Fish');"
                                      iconsrc="${pageContext.request.contextPath}/images/fish_icon.gif">
                                 </div>
-                                
+
                                 <div dojoType="FisheyeListItem" onClick="browse('Reptiles');"
                                      iconsrc="${pageContext.request.contextPath}/images/reptiles_icon.gif">
                                 </div>
                             </div>
-                            
+
                         </div>
                     </td>
                     <td valign="top" style="width: 400px">
@@ -152,36 +150,36 @@ try {
                                 <tr>
                                     <td>
                                         <map name="petmap">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Birds')" 
-                                                  alt="Birds" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Birds')"
+                                                  alt="Birds"
                                                   coords="72,2,280,250">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Fish')" 
-                                                  alt="Fish" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Fish')"
+                                                  alt="Fish"
                                                   coords="2,180,72,250">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Dogs')" 
-                                                  alt="Dogs" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Dogs')"
+                                                  alt="Dogs"
                                                   coords="60,250,130,320">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Reptiles')" 
-                                                  alt="Reptiles" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Reptiles')"
+                                                  alt="Reptiles"
                                                   coords="140,270,210,340">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Cats')" 
-                                                  alt="Cats" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Cats')"
+                                                  alt="Cats"
                                                   coords="225,240,295,310">
-                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Birds')" 
-                                                  alt="Birds" 
+                                            <area onmouseover="javascript:this.style.cursor='pointer';" onclick="browse('Birds')"
+                                                  alt="Birds"
                                                   coords="280,180,350,250">
                                         </map>
-                                        
-                                        <img src="${pageContext.request.contextPath}/images/splash.gif" 
+
+                                        <img src="${pageContext.request.contextPath}/images/splash.gif"
                                              alt="Pet Selection Map"
-                                             usemap="#petmap" 
-                                             width="350" 
-                                             height="355" 
+                                             usemap="#petmap"
+                                             width="350"
+                                             height="355"
                                              border="0">
                                     </td>
                                 </tr>
                             </table>
-                            
+
                         </div>
                     </td>
                     <td style="vertical-align:top;">
@@ -207,7 +205,7 @@ try {
         }
 
         if((ii % 2) == 0) out.println("</tr>\n<tr>");
-        out.println("<td class='tagCell' style='text-align: center'><a href='./tag.jsp?tag=" + 
+        out.println("<td class='tagCell' style='text-align: center'><a href='./tag.jsp?tag=" +
             tag.getTag() + "'><span class='" + style +"'>" +  tag.getTag() + "</span></a></td>");
         ii++;
     }
@@ -223,11 +221,11 @@ try {
                     </td>
                 </tr>
             </table>
-        
+
         <div style="position: absolute; visibility: hidden;z-index:5" id="menu-popup">
             <table id="completeTable" class="popupTable" ></table>
         </div>
-        
+
         <br/><br/>
         <jsp:include page="footer.jsp" />
     </body>
