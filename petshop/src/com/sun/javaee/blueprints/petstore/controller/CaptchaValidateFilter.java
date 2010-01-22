@@ -1,13 +1,12 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: CaptchaValidateFilter.java,v 1.24 2007/01/17 18:00:05 basler Exp $ */
-
 package com.sun.javaee.blueprints.petstore.controller;
 
-import com.sun.javaee.blueprints.components.ui.fileupload.FileUploadStatus;
+import static com.sun.javaee.blueprints.petstore.controller.actions.CaptchaAction.CAPTCHA_STRING;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,26 +18,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-// for CAPTCHA_KEY and CAPTCHA_STRING
-import static com.sun.javaee.blueprints.petstore.controller.actions.CaptchaAction.*;
+import com.sun.javaee.blueprints.components.ui.fileupload.FileUploadStatus;
 import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 
 public class CaptchaValidateFilter implements Filter {
-    
+
     private static final boolean debug = false;
     private static final String CAPTCHA_FIELD_NAME = "j_captcha_response";
     private static final String INVALID_CAPTCHA = "captchaInvalid";
-    
+
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured.
     private FilterConfig filterConfig = null;
-    
+
     /**
      * @return boolean true if captcha is correct
      */
     private Boolean isCaptchaCorrect(HttpServletRequest request, HttpServletResponse response) {
-        
+
         String captchaString = null;
         // Using Cookie instead of actual form body
         Cookie[] cookies = request.getCookies();
@@ -59,8 +57,8 @@ public class CaptchaValidateFilter implements Filter {
         }
         return validResponse;
     }
-    
-    
+
+
     /**
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
@@ -68,12 +66,12 @@ public class CaptchaValidateFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (debug) log("CaptchaValidateFilter:doFilter()");
         HttpServletRequest httpRequest=(HttpServletRequest)request;
         HttpServletResponse httpReponse=(HttpServletResponse)response;
         Boolean correctCaptcha = isCaptchaCorrect((HttpServletRequest)request, httpReponse);
-        
+
         Throwable problem = null;
         if (correctCaptcha) {
             // check to make sure size of upload isn't too big, over 150kb
@@ -86,7 +84,7 @@ public class CaptchaValidateFilter implements Filter {
                 httpReponse.setHeader("Pragma", "no-cache");
                 return;
             }
-            
+
             // if there's previous set session attribute, remove it
             HttpSession session = ((HttpServletRequest)request).getSession(true);
             session.removeAttribute(INVALID_CAPTCHA);
@@ -101,9 +99,9 @@ public class CaptchaValidateFilter implements Filter {
                 problem = t;
                 t.printStackTrace();
             }
-            
+
             // possible "after-do" process here
-            
+
             //
             // If there was a problem, we want to rethrow it if it is
             // a known type, otherwise log it.
@@ -128,53 +126,52 @@ public class CaptchaValidateFilter implements Filter {
             httpReponse.setHeader("Pragma", "no-cache");
         }
     }
-    
+
     /**
      * Return the filter configuration object for this filter.
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
     }
-    
+
     /**
      * Set the filter configuration object for this filter.
      *
      * @param filterConfig The filter configuration object
      */
     public void setFilterConfig(FilterConfig filterConfig) {
-        
         this.filterConfig = filterConfig;
     }
-    
+
     public void destroy() {
     }
-    
+
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (debug && filterConfig != null) {
             log("CaptchaValidateFilter:Initializing filter");
         }
     }
-    
-    public String toString() {        
+
+    public String toString() {
         if (filterConfig == null) return ("CaptchaValidateFilter()");
         StringBuffer sb = new StringBuffer("CaptchaValidateFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        
-        String stackTrace = getStackTrace(t);        
-        if(stackTrace != null && !stackTrace.equals("")) {            
-            try {                
+
+        String stackTrace = getStackTrace(t);
+        if(stackTrace != null && !stackTrace.equals("")) {
+            try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
                 PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
-                
+
                 // PENDING! Localize this for next official release
                 pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
                 pw.print(stackTrace);
@@ -192,7 +189,7 @@ public class CaptchaValidateFilter implements Filter {
             } catch(IOException ex){ }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -201,7 +198,7 @@ public class CaptchaValidateFilter implements Filter {
         PetstoreUtil.closeIgnoringException(sw);
         return sw.getBuffer().toString();
     }
-    
+
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
     }
