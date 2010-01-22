@@ -34,7 +34,6 @@ public class EntryFilter implements Filter {
     public EntryFilter() {
     }
 
-
     /**
      *
      * @param request The servlet request we are processing
@@ -56,7 +55,7 @@ public class EntryFilter implements Filter {
             // This model does require cookies.
             // In the future, programtic security will
             // be needed to match sellers with their products and customers.
-            HttpServletRequest httpRequest=(HttpServletRequest)request;
+            HttpServletRequest httpRequest = (HttpServletRequest)request;
             if(!httpRequest.isRequestedSessionIdValid()) {
                 // not a valid session, make sure pages are entry pages or access images
                 PetstoreUtil.getLogger().log(Level.FINE,"Do not have Session, have page " + httpRequest.getPathInfo());
@@ -116,7 +115,6 @@ public class EntryFilter implements Filter {
      * @param filterConfig The filter configuration object
      */
     public void setFilterConfig(FilterConfig filterConfig) {
-
         this.filterConfig = filterConfig;
     }
 
@@ -153,10 +151,7 @@ public class EntryFilter implements Filter {
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-
     }
-
-
 
     private void sendProcessingError(Throwable t, ServletResponse response) {
 
