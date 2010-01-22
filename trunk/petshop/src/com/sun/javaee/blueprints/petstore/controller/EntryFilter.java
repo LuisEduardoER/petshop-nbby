@@ -1,9 +1,3 @@
-/*
- * EntryFilter.java
- *
- * Created on September 7, 2006, 11:19 AM
- */
-
 package com.sun.javaee.blueprints.petstore.controller;
 
 import java.io.IOException;
@@ -29,18 +23,18 @@ import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
  */
 
 public class EntryFilter implements Filter {
-    
+	private static final boolean bDebug = false;
+
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured.
     private FilterConfig filterConfig = null;
-    private String[] entryPages=null;
-    private static final boolean bDebug=false;
-    
+    private String[] entryPages = null;
+
     public EntryFilter() {
     }
-    
-    
+
+
     /**
      *
      * @param request The servlet request we are processing
@@ -53,10 +47,10 @@ public class EntryFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         Throwable problem = null;
         try {
-            
+
             // Implement a simple security model for now. Just make sure a session
             // exists for internally used resources except for entry pages and images.
             // This model does require cookies.
@@ -84,7 +78,7 @@ public class EntryFilter implements Filter {
                     }
                 }
             }
-            
+
             chain.doFilter(request, response);
         } catch(Throwable t) {
             //
@@ -95,7 +89,7 @@ public class EntryFilter implements Filter {
             problem = t;
             t.printStackTrace();
         }
-        
+
         //
         // If there was a problem, we want to rethrow it if it is
         // a known type, otherwise log it.
@@ -106,41 +100,41 @@ public class EntryFilter implements Filter {
             sendProcessingError(problem, response);
         }
     }
-    
-    
+
+
     /**
      * Return the filter configuration object for this filter.
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
     }
-    
-    
+
+
     /**
      * Set the filter configuration object for this filter.
      *
      * @param filterConfig The filter configuration object
      */
     public void setFilterConfig(FilterConfig filterConfig) {
-        
+
         this.filterConfig = filterConfig;
     }
-    
+
     /**
      * Destroy method for this filter
      *
      */
     public void destroy() {
     }
-    
-    
+
+
     /**
      * Init method for this filter
      *
      */
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
-        
+
         // read in allowed access points
         String entryPagesParam=filterConfig.getServletContext().getInitParameter("entryPages");
         if(bDebug) System.out.println("\n*** entry String = " + entryPagesParam);
@@ -152,30 +146,30 @@ public class EntryFilter implements Filter {
             entryPages[ii]=stPages.nextToken();
         }
     }
-    
+
     public String toString() {
         if (filterConfig == null) return ("EntryFilter()");
         StringBuffer sb = new StringBuffer("EntryFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
-    
-    
+
+
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        
+
         String stackTrace = getStackTrace(t);
         if(stackTrace != null && !stackTrace.equals("")) {
-            
+
             try {
-                
+
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
                 PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
-                
+
                 // PENDING! Localize this for next official release
                 pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
                 pw.print(stackTrace);
@@ -193,7 +187,7 @@ public class EntryFilter implements Filter {
             } catch(IOException ex){ }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);

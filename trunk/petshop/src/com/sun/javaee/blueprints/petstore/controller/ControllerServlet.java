@@ -3,22 +3,23 @@ $Id: ControllerServlet.java,v 1.28 2007/01/17 18:00:06 basler Exp $ */
 
 package com.sun.javaee.blueprints.petstore.controller;
 
-import com.sun.javaee.blueprints.petstore.controller.actions.CaptchaAction;
-import com.sun.javaee.blueprints.petstore.controller.actions.CatalogXmlAction;
-import com.sun.javaee.blueprints.petstore.controller.actions.DefaultControllerAction;
-import com.sun.javaee.blueprints.petstore.controller.actions.ImageAction;
-import com.sun.javaee.blueprints.petstore.controller.actions.TagXmlAction;
-import com.sun.javaee.blueprints.petstore.model.CatalogFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.logging.Level;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.javaee.blueprints.petstore.controller.actions.CaptchaAction;
+import com.sun.javaee.blueprints.petstore.controller.actions.CatalogXmlAction;
+import com.sun.javaee.blueprints.petstore.controller.actions.DefaultControllerAction;
+import com.sun.javaee.blueprints.petstore.controller.actions.ImageAction;
+import com.sun.javaee.blueprints.petstore.controller.actions.TagXmlAction;
+import com.sun.javaee.blueprints.petstore.model.CatalogFacade;
 import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 
 /**
@@ -29,11 +30,13 @@ import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
  * This servlet also will process requests for client observers
  */
 public class ControllerServlet extends HttpServlet {
-    
-    private static final boolean bDebug=false;
+
+	private static final long serialVersionUID = 8461887407550318244L;
+	private static final boolean bDebug = false;
+
     private HashMap<String, ControllerAction> actionMap = new HashMap<String, ControllerAction>();
-    
-    @Override 
+
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext context = config.getServletContext();
@@ -44,16 +47,16 @@ public class ControllerServlet extends HttpServlet {
         actionMap.put("/TagServlet", new TagXmlAction(cf));
         actionMap.put("/catalog", new CatalogXmlAction(cf));
     }
-    
+
     public ControllerAction findAction(String servletPath) {
         return actionMap.get(servletPath);
     }
-    @Override 
+    @Override
     public void destroy() {
         actionMap = null;
     }
-    
-    @Override 
+
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
         if(bDebug) System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
