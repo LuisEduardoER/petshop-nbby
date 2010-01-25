@@ -1,6 +1,3 @@
-<%-- Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: banner.jsp,v 1.28 2006/12/19 20:23:53 yutayoshida Exp $ --%>
-
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -75,5 +72,4 @@ $Id: banner.jsp,v 1.28 2006/12/19 20:23:53 yutayoshida Exp $ --%>
   </td>
  </tr>
  </table>
-
 
