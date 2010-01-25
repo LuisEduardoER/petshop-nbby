@@ -1,25 +1,23 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: ImageScaler.java,v 1.7 2007/01/10 21:48:01 yutayoshida Exp $ */
-
 package com.sun.javaee.blueprints.petstore.util;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.awt.image.AffineTransformOp;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class ImageScaler {
-    
+
     private int thumbWidth = 133;
     private int thumbHeight = 100;
     private String format = "jpg";
     BufferedImage image = null;
-    
+
     /** Creates a new instance of ImageScaler */
     public ImageScaler(String imagePath) throws IOException {
         this.image = ImageIO.read(new File(imagePath));
@@ -33,7 +31,7 @@ public class ImageScaler {
         this.thumbHeight = height;
         this.image = ImageIO.read(new File(imagePath));
     }
-    
+
     /* must be called before resize method
      * when it is necessary to keep the aspect ratio
      */
@@ -54,7 +52,7 @@ public class ImageScaler {
                 Image.SCALE_AREA_AVERAGING), 0, 0, thumbWidth, thumbHeight, null);
         ImageIO.write(bThumb, format, new File(to));
     }
-    
+
     /* Using Graphics2D
      * medium quality, fast
      * @param from the path of the original image
@@ -75,14 +73,14 @@ public class ImageScaler {
         g2d.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
         ImageIO.write(th, format, new File(to));
     }
-    
+
     /* Using Affine transform
      * for transform with power(0.5, etc.). fastest.
      * @param from the path of the original image
      * @param to the path of the target thumbnail
      * @param power to rescale(0.25, 0.5...)
      */
-    public void resizeWithAffineTransform(String to, double  power) throws IOException {
+    public void resizeWithAffineTransform(String to, double power) throws IOException {
         int w = image.getWidth();
         int h = image.getHeight();
         BufferedImage th = new BufferedImage((int)(w*power), (int)(h*power), image.getType());
@@ -93,7 +91,7 @@ public class ImageScaler {
         op.filter(image, th);
         ImageIO.write(th, format, new File(to));
     }
-    
+
     /* setting the target file format
      * @param format specifying the image format, such as "jpg"
      */
