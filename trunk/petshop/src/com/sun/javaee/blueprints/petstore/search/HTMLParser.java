@@ -1,15 +1,6 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: HTMLParser.java,v 1.13 2007/01/11 17:45:26 basler Exp $ */
-
 package com.sun.javaee.blueprints.petstore.search;
 
 
-import javax.swing.text.html.parser.ParserDelegator;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.HTML;
-import javax.swing.text.MutableAttributeSet;
-import java.util.logging.Level;
-import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -19,6 +10,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.parser.ParserDelegator;
+
+import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 
 /**
  * This class can crawl a web site indexing appropriate data as best as possible
@@ -28,33 +27,33 @@ import java.util.List;
  * @author basler
  */
 public class HTMLParser {
-    
-    private static final boolean bDebug=false;
-    
+
+    private static final boolean bDebug = false;
+
     public static void main(String[] args) {
-        HTMLParser hp=new HTMLParser();
+        HTMLParser hp = new HTMLParser();
         hp.runWeb("http://localhost:8080", "petstore", "main.screen");
         //System.setProperty("http.proxyHost", "129.145.155.150");
         //System.setProperty("http.proxyPort", "8080");
         //hp.runWeb("http://www.amazon.com:80", "gp", "product/B00005UP2K/104-5359565-9034353?v=glance&n=284507&v=glance");
     }
-    
+
     /** Creates a new instance of HTMLParser */
     public HTMLParser() {
     }
-    
+
     public void runWeb(String beginURL, String contextRoot, String pageURI) {
         if(bDebug) System.out.println("WEB Path");
-        
+
         // use hashset to remove like items
         List<String> vtURLs = new ArrayList<String>();
-        
+
         // see if robots.txt file exist
         List<String> vtRobots = getRobots(beginURL, contextRoot);
-        
+
         vtURLs.add("/" + contextRoot + "/" + pageURI);
-        Indexer indexer=null;
-        IndexDocument indexDoc=null;
+        Indexer indexer = null;
+        IndexDocument indexDoc = null;
         try {
             indexer = new Indexer("/tmp/tmp/index");    // get indexer
             for (String sxURL : vtURLs) {
@@ -76,22 +75,22 @@ public class HTMLParser {
                     // no robots.text so everything is indexed
                     bIndexPage=true;
                 }
-                
+
                 // add host:port to URL
                 sxURL=beginURL + sxURL;
-                
+
                 // parse, index and get forwarding urls
-                ParserDelegator pd=new ParserDelegator();
-                CallbackHandler cb=new CallbackHandler(vtURLs, bIndexPage,  contextRoot);
+                ParserDelegator pd = new ParserDelegator();
+                CallbackHandler cb = new CallbackHandler(vtURLs, bIndexPage,  contextRoot);
                 try {
                     URLConnection urlConn=new URL(sxURL).openConnection();
                     urlConn.setUseCaches(false);
                     Date modDate=new Date(urlConn.getLastModified());
                     if(bDebug) System.out.println("\nMatch - " + sxURL + " - Modified Date - " + modDate);
-                    
+
                     BufferedReader bfReader=new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
                     pd.parse(bfReader, cb, true);
-                    
+
                     // check to see if the file should be index
                     if(bIndexPage) {
                         if(bDebug) System.out.println("Adding Index - " + sxURL + "\nContent:" + cb.getText() + "\nSummary:" + cb.getSummary() + "\nTitle:" + cb.getTitle());
@@ -120,7 +119,7 @@ public class HTMLParser {
             }
         }
     }
-    
+
     private List<String> getRobots(String beginURL, String contextRoot) {
         List<String> vtRobots = new ArrayList<String> ();
         // read in robots.txt file
@@ -138,7 +137,7 @@ public class HTMLParser {
             }
         } catch(Exception e) {
             PetstoreUtil.getLogger().log(Level.SEVERE, "Exception" + e);
-            
+
             vtRobots=null;
         } finally {
             try {
@@ -147,15 +146,15 @@ public class HTMLParser {
                 }
             } catch(Exception ee) {}
         }
-        
+
         return vtRobots;
     }
-    
-    
+
+
     //********************************************************************************************
     // * INNER CLASSES
     //********************************************************************************************
-    
+
     private class CallbackHandler extends HTMLEditorKit.ParserCallback {
         private String beginURL, contextRoot;
         private List<String> vtURLs;
@@ -165,15 +164,15 @@ public class HTMLParser {
         private int iSummaryMax=200;
         private boolean bSummary=false, bIndexPage=false;
         private String tag=null;
-        
+
         CallbackHandler(List<String> vtURLs, boolean bIndexPage, String contextRoot) {
             super();
             this.contextRoot=contextRoot;
             this.bIndexPage=bIndexPage;
             this.vtURLs=vtURLs;
         }
-        
-        @Override 
+
+        @Override
         public void handleSimpleTag(HTML.Tag t, MutableAttributeSet a, int pos) {
             if(bIndexPage) {
                 if(t.toString().toLowerCase().equals("meta")) {
@@ -184,16 +183,16 @@ public class HTMLParser {
                         sxName=sxName.toLowerCase();
                         if(sxName.equals("summary") || sxName.equals("description")) {
                             String sxContent=((String)a.getAttribute(HTML.Attribute.CONTENT));
-                            
+
                             // set so default summary algorythm (text on top of page) doesn't get invoked
                             bSummary=true;
-                            
+
                             // check to make sure summary isn't too big
                             if(sbSummary.length() < iSummaryMax) {
                                 if(bDebug) System.out.println("add summary - " + sxContent);
                                 sbSummary.append(sxContent);
                             }
-                            
+
                             // always add to text
                             sbText.append(sxContent);
                         } else if(sxName.equals("keywords")) {
@@ -204,16 +203,16 @@ public class HTMLParser {
                 }
             }
         }
-        
-        @Override 
+
+        @Override
         public void handleStartTag(HTML.Tag t, MutableAttributeSet a, int pos) {
-            
+
             // if the tag is a link "<a href", if the url doesn't go off site, store it for later indexing
             tag=t.toString().toLowerCase();
             if(tag.equals("a")) {
                 // see if href attribute
                 // System.out.println("\nStart Tag = '" + t + "'  - attr " + a);
-                
+
                 String sxURL=(String)a.getAttribute(HTML.Attribute.HREF);
                 if(sxURL != null) {
                     // check to see if URL is local && make sure it isn't a named anchor
@@ -231,14 +230,14 @@ public class HTMLParser {
                             // found session
                             sxURL=sxURL.substring(0, iPos1) + sxURL.substring(iPos2);
                         }
-                        
-                        
+
+
                         // check to see if url is relative or absolute
                         if(!sxURL.startsWith("/")) {
                             // relative
                             sxURL="/" + contextRoot + "/" + sxURL;
                         }
-                        
+
                         // see if page already in crawler list
                         if(!vtURLs.contains(sxURL)) {
                             // local url that isn't already in list, add to crawler
@@ -249,21 +248,21 @@ public class HTMLParser {
                 }
             }
         }
-        
-        
-        @Override 
+
+
+        @Override
         public void handleEndTag(HTML.Tag t, int pos) {
             // System.out.println("End Tag = " + t + "  - pos " + pos);
             tag=null;
         }
-        
-        
-        @Override 
+
+
+        @Override
         public void handleText(char[] data, int pos) {
             // System.out.println("Tag - Text - " + tag + " - -->" + new String(data) + "<-- - " + pos);
             // all text should be index against this page
             if(bIndexPage) {
-                
+
                 // clean the data incase bad html
                 String cleanData=cleanParseData(data);
                 if(cleanData != null) {
@@ -274,7 +273,7 @@ public class HTMLParser {
                         //System.out.println("Tag - Text - " + tag + " - -->" + new String(data) + "<-- - " + pos);
                         sbText.append(cleanData);
                         sbText.append(" ");
-                        
+
                         // add summary ???
                         if(!bSummary && sbSummary.length() < iSummaryMax) {
                             sbSummary.append(cleanData.substring(0, cleanData.length() > iSummaryMax ? iSummaryMax - sbSummary.length() : cleanData.length()));
@@ -288,7 +287,7 @@ public class HTMLParser {
                 }
             }
         }
-        
+
         public String cleanParseData(char[] data) {
             // need to clean up the data that is returned from the parse
             String sxTemp=new String(data).trim();
@@ -298,18 +297,18 @@ public class HTMLParser {
             }
             return sxTemp;
         }
-        
+
         public String getText() {
             return sbText.toString();
         }
         public Reader getTextReader() {
             return new StringReader(sbText.toString());
         }
-        
+
         public String getTitle() {
             return sbTitle.toString();
         }
-        
+
         public String getSummary() {
             if(sbSummary.length() < 1) {
                 return sbTitle.toString();
