@@ -17,11 +17,9 @@ public class PetstoreUtil {
     private static final Logger _logger = getBaseLogger();
     private static final PropertyResourceBundle _resBundle = getBaseBundle();
 
-
     /** Creates a new instance of PetstoreUtil */
     public PetstoreUtil() {
     }
-
 
     public static Logger getLogger() {
         return _logger;
@@ -49,7 +47,6 @@ public class PetstoreUtil {
         return getMessage(key, (Object[])null);
     }
 
-
     /**
      * This method uses the default message strings property file to resolve
      * resultant string to show to an end user
@@ -60,12 +57,12 @@ public class PetstoreUtil {
     public static String getMessage(String key, Object... arguments) {
         String sxRet = null;
         // get resource bundle and retrive message
-        sxRet=_resBundle.getString(key);
+        sxRet = _resBundle.getString(key);
 
         // see if the message needs to be formatted
         if(arguments != null) {
             // format message
-            sxRet=MessageFormat.format(sxRet, arguments);
+            sxRet = MessageFormat.format(sxRet, arguments);
         }
         return sxRet;
     }
@@ -82,8 +79,8 @@ public class PetstoreUtil {
     }
 
     public static String encodeJSONString(String json) {
-        json=json.replaceAll("'", "\\\\'");
-        json=json.replaceAll("\"", "\\\\\\\"");
+        json = json.replaceAll("'", "\\\\'");
+        json = json.replaceAll("\"", "\\\\\\\"");
         return json;
     }
 
