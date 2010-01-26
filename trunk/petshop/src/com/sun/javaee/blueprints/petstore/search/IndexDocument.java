@@ -134,7 +134,6 @@ public class IndexDocument {
         this.disabled=disabled;
     }
 
-
     public String toString() {
         String sxRet=" UID=" + uid + " pageURL=" + pageURL + " title=" + title +
             " summary=" + summary + " image=" + image +
