@@ -31,8 +31,7 @@ public class EntryFilter implements Filter {
     private FilterConfig filterConfig = null;
     private String[] entryPages = null;
 
-    public EntryFilter() {
-    }
+    public EntryFilter() { }
 
     /**
      *
@@ -44,8 +43,7 @@ public class EntryFilter implements Filter {
      * @exception ServletException if a servlet error occurs
      */
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
+			FilterChain chain) throws IOException, ServletException {
 
         Throwable problem = null;
         try {
@@ -63,7 +61,7 @@ public class EntryFilter implements Filter {
                 String pagex=httpRequest.getPathInfo();
                 // if null page then using default welcome mechanism, assume it is an accessable page.
                 if(pagex != null) {
-                    for(int ii=0; ii < entryPages.length; ii++) {
+                    for (int ii = 0; ii < entryPages.length; ii++) {
                         if(pagex.toLowerCase().endsWith(entryPages[ii].toLowerCase())) {
                             foundx=true;
                             break;

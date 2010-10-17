@@ -51,6 +51,7 @@ public class ControllerServlet extends HttpServlet {
     public ControllerAction findAction(String servletPath) {
         return actionMap.get(servletPath);
     }
+
     @Override
     public void destroy() {
         actionMap = null;
@@ -62,11 +63,12 @@ public class ControllerServlet extends HttpServlet {
         if(bDebug) System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
         ControllerAction action = actionMap.get(servletPath);
         if (action != null) {
-            if(bDebug) System.out.println(" Found action " + action.getClass().getName());
+            if (bDebug) System.out.println(" Found action " + action.getClass().getName());
             action.service(request, response);
         } else {
-            PetstoreUtil.getLogger().log(Level.SEVERE, "Servlet '" + request.getServletPath() + "' not registered in ControllerServlet!!");
-            HttpServletResponse httpResponse=(HttpServletResponse)response;
+            PetstoreUtil.getLogger().log(Level.SEVERE, "Servlet '" + request.getServletPath()
+            		+ "' not registered in ControllerServlet!!");
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

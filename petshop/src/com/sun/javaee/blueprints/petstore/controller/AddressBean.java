@@ -9,8 +9,7 @@ public class AddressBean {
     private String state;
     private String zip;
 
-    public AddressBean() {
-    }
+    public AddressBean() { }
 
     public void setStreet(String street) {
         if(bDebug) System.out.println("Setting street - " + street);
