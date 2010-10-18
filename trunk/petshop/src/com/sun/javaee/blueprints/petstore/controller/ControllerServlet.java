@@ -60,7 +60,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if(bDebug) System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
+        if (bDebug) System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
         ControllerAction action = actionMap.get(servletPath);
         if (action != null) {
             if (bDebug) System.out.println(" Found action " + action.getClass().getName());

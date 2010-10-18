@@ -3,9 +3,9 @@ $Id: Tag.java,v 1.5 2007/01/03 23:11:26 inder Exp $ */
 
 package com.sun.javaee.blueprints.petstore.model;
 
-import static javax.persistence.CascadeType.REMOVE;
 import java.util.Collection;
 import java.util.Vector;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,18 +18,19 @@ import javax.persistence.TableGenerator;
 @Entity
 public class Tag implements java.io.Serializable {
 
-    private int tagID=-1;
+	private static final long serialVersionUID = 2195979784450800640L;
+
+	private int tagID=-1;
     private Collection<Item> items= new Vector<Item>();
     private String tag;
     private int refCount=0;
-      
-    public Tag() {
-    }
-    
+
+    public Tag() { }
+
     public Tag(String Tag) {
         this.tag=Tag;
     }
-    
+
     @TableGenerator(name="TAG_ID_GEN",
             table="ID_GEN",
             pkColumnName="GEN_KEY",
@@ -45,14 +46,14 @@ public class Tag implements java.io.Serializable {
         this.tagID=tagID;
     }
 
-    
+
     public String getTag() {
         return tag;
     }
     public void setTag(String tag) {
         this.tag=tag;
     }
-    
+
     public int getRefCount() {
         return refCount;
     }
@@ -62,8 +63,8 @@ public class Tag implements java.io.Serializable {
     public synchronized void incrementRefCount() {
         refCount++;
     }
-    
-    
+
+
     @ManyToMany
     @JoinTable(name = "TAG_ITEM", joinColumns = @JoinColumn(name = "TAGID", referencedColumnName = "TAGID")
     , inverseJoinColumns = @JoinColumn(name = "ITEMID", referencedColumnName = "ITEMID")
@@ -74,7 +75,7 @@ public class Tag implements java.io.Serializable {
     public void setItems(Collection<Item> items) {
         this.items=items;
     }
-    
+
     public boolean itemExists(Item item) {
         return this.getItems().contains(item);
     }

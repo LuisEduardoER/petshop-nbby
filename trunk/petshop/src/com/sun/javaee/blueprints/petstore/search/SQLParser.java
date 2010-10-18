@@ -19,8 +19,7 @@ public class SQLParser {
     private static final boolean bDebug = false;
 
     /** Creates a new instance of SQLParser */
-    public SQLParser() {
-    }
+    public SQLParser() { }
 
     public void runSQL(String sxIndexFile, Connection conn, String sql, String tagSql) {
         PetstoreUtil.getLogger().log(Level.INFO, "index.sql.statement", sql);
