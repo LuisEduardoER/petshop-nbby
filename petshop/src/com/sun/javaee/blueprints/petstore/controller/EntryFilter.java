@@ -56,15 +56,15 @@ public class EntryFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest)request;
             if(!httpRequest.isRequestedSessionIdValid()) {
                 // not a valid session, make sure pages are entry pages or access images
-                PetstoreUtil.getLogger().log(Level.FINE,"Do not have Session, have page " + httpRequest.getPathInfo());
-                boolean foundx=false;
-                String pagex=httpRequest.getPathInfo();
+                PetstoreUtil.getLogger().log(Level.FINE, "Do not have Session, have page " + httpRequest.getPathInfo());
+                boolean foundx = false;
+                String pagex = httpRequest.getPathInfo();
                 // if null page then using default welcome mechanism, assume it is an accessable page.
                 if(pagex != null) {
                     for (int ii = 0; ii < entryPages.length; ii++) {
                         if(pagex.toLowerCase().endsWith(entryPages[ii].toLowerCase())) {
-                            foundx=true;
-                            break;
+                            foundx = true;
+							break;
                         }
                     }
                     if(!foundx) {
@@ -132,8 +132,8 @@ public class EntryFilter implements Filter {
         this.filterConfig = filterConfig;
 
         // read in allowed access points
-        String entryPagesParam=filterConfig.getServletContext().getInitParameter("entryPages");
-        if(bDebug) System.out.println("\n*** entry String = " + entryPagesParam);
+        String entryPagesParam = filterConfig.getServletContext().getInitParameter("entryPages");
+        if (bDebug) System.out.println("\n*** entry String = " + entryPagesParam);
         // loop through pages to see if
         StringTokenizer stPages=new StringTokenizer(entryPagesParam, "|");
         int countx=stPages.countTokens();

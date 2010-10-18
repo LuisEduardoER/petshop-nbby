@@ -11,14 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 
-@Entity        
+@Entity
 public class SellerContactInfo implements java.io.Serializable {
-    
-    private String contactInfoID;
+
+	private static final long serialVersionUID = -7992816309274331120L;
+
+	private String contactInfoID;
     private String lastName;
     private String firstName;
     private String email;
-    
+
     public SellerContactInfo() { }
     public SellerContactInfo(String firstName, String lastName,
             String email) {
@@ -26,31 +28,31 @@ public class SellerContactInfo implements java.io.Serializable {
         this.lastName = lastName;
         this.email = email;
     }
-    
+
     @TableGenerator(name="CONTACTINFO_ID_GEN",
             table="ID_GEN",
             pkColumnName="GEN_KEY",
             valueColumnName="GEN_VALUE",
             pkColumnValue="CONTACT_INFO_ID",
             allocationSize=1)
-            @GeneratedValue(strategy=GenerationType.TABLE,generator="CONTACTINFO_ID_GEN")
-            @Id
-            public String getContactInfoID() {
+    @GeneratedValue(strategy=GenerationType.TABLE,generator="CONTACTINFO_ID_GEN")
+    @Id
+    public String getContactInfoID() {
         return contactInfoID;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -64,7 +66,7 @@ public class SellerContactInfo implements java.io.Serializable {
         this.firstName = firstName;
     }
 
-    
+
     /**
      * This method checks to make sure the class values are valid
      *
@@ -72,7 +74,7 @@ public class SellerContactInfo implements java.io.Serializable {
      */
     public String[] validateWithMessage() {
         ArrayList<String> valMess=new ArrayList<String>();
-        
+
         // make sure make and address is entered
         if(firstName == null || firstName.equals("")) {
             // price should be a number
@@ -81,10 +83,10 @@ public class SellerContactInfo implements java.io.Serializable {
         if(lastName == null || lastName.equals("")) {
             valMess.add(PetstoreUtil.getMessage("invalid_contact_lastname"));
         }
-            
+
         return valMess.toArray(new String[valMess.size()]);
     }
-    
+
 }
 
 

@@ -1,6 +1,5 @@
 package com.sun.javaee.blueprints.petstore.search;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -39,8 +38,7 @@ public class HTMLParser {
     }
 
     /** Creates a new instance of HTMLParser */
-    public HTMLParser() {
-    }
+    public HTMLParser() { }
 
     public void runWeb(String beginURL, String contextRoot, String pageURI) {
         if(bDebug) System.out.println("WEB Path");
@@ -77,7 +75,7 @@ public class HTMLParser {
                 }
 
                 // add host:port to URL
-                sxURL=beginURL + sxURL;
+                sxURL = beginURL + sxURL;
 
                 // parse, index and get forwarding urls
                 ParserDelegator pd = new ParserDelegator();
@@ -125,10 +123,10 @@ public class HTMLParser {
         // read in robots.txt file
         BufferedReader bfReader=null;
         try {
-            URL urlx=new URL(beginURL + "/" + contextRoot + "/" + "robots.txt");
-            URLConnection urlConn=urlx.openConnection();
+            URL urlx = new URL(beginURL + "/" + contextRoot + "/" + "robots.txt");
+            URLConnection urlConn = urlx.openConnection();
             urlConn.setUseCaches(false);
-            bfReader=new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+            bfReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
             String sxLine="";
             while((sxLine=bfReader.readLine()) != null) {
                 if(sxLine.startsWith("Disallow:")) {
@@ -208,7 +206,7 @@ public class HTMLParser {
         public void handleStartTag(HTML.Tag t, MutableAttributeSet a, int pos) {
 
             // if the tag is a link "<a href", if the url doesn't go off site, store it for later indexing
-            tag=t.toString().toLowerCase();
+            tag = t.toString().toLowerCase();
             if(tag.equals("a")) {
                 // see if href attribute
                 // System.out.println("\nStart Tag = '" + t + "'  - attr " + a);
