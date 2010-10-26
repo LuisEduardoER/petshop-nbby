@@ -1,6 +1,3 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: CatalogXmlAction.java,v 1.7 2007/05/04 03:38:14 basler Exp $ */
-
 package com.sun.javaee.blueprints.petstore.controller.actions;
 
 import com.sun.javaee.blueprints.petstore.controller.ControllerAction;
@@ -24,16 +21,18 @@ import javax.servlet.http.HttpServletResponse;
  * @author Inderjeet Singh
  */
 public class CatalogXmlAction implements ControllerAction {
-    
+
     private final CatalogFacade cf;
-    private static final boolean bDebug=false;
-    private static final String COMMA =", ";
+    private static final boolean bDebug = false;
+	private static final String COMMA = ", ";
     private static final String DOUBLE_QUOTE = "\"";
 
     public CatalogXmlAction(CatalogFacade cf) {
         this.cf = cf;
     }
-    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+
+    public void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String command = request.getParameter("command");
         String format = request.getParameter("format");
@@ -223,7 +222,7 @@ public class CatalogXmlAction implements ControllerAction {
         }
         return sb.toString();
     }
-    
+
     private String handleCategory(String categoryId) {
         StringBuffer sb = new StringBuffer();
         // then write the data of the response
@@ -246,7 +245,7 @@ public class CatalogXmlAction implements ControllerAction {
         sb.append("</category>\n");
         return sb.toString();
     }
-    
+
     private String handleItem(String targetId){
         Item i = cf.getItem(targetId);
         StringBuffer sb = new StringBuffer();
@@ -260,7 +259,7 @@ public class CatalogXmlAction implements ControllerAction {
         sb.append("</item>\n");
         return sb.toString();
     }
-    
+
     private String handleCategories(HttpServletResponse response, String format, String callback){
         StringBuilder sb = new StringBuilder();
 

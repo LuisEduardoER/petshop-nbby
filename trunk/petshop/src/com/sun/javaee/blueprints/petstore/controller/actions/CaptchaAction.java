@@ -1,6 +1,3 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: CaptchaAction.java,v 1.2 2007/01/17 18:00:06 basler Exp $ */
-
 package com.sun.javaee.blueprints.petstore.controller.actions;
 
 import com.sun.javaee.blueprints.petstore.captcha.SimpleCaptcha;
@@ -20,10 +17,10 @@ import javax.servlet.http.HttpSession;
  * @author Inderjeet Singh
  */
 public class CaptchaAction implements ControllerAction {
-    
+
     public static final String CAPTCHA_KEY = "captcha_key";
     public static final String CAPTCHA_STRING = "captcha_string";
-    
+
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
         SimpleCaptcha captcha = new SimpleCaptcha();
         // just in case... not really necessary to store the session id here
@@ -32,7 +29,7 @@ public class CaptchaAction implements ControllerAction {
         String cstring = captcha.generateCaptchaString(5);
         session.setAttribute(CAPTCHA_STRING, cstring);
         BufferedImage bimg = captcha.getCaptchaImage(cstring);
-        
+
         response.setHeader("Cache-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);

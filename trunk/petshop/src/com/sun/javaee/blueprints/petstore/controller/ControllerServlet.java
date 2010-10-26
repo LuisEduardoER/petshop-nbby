@@ -1,6 +1,3 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: ControllerServlet.java,v 1.28 2007/01/17 18:00:06 basler Exp $ */
-
 package com.sun.javaee.blueprints.petstore.controller;
 
 import java.io.IOException;
@@ -60,7 +57,8 @@ public class ControllerServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if (bDebug) System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
+        if (bDebug)
+        	System.out.println(" ServletPath: " + servletPath + ", pathinfo: " + request.getPathInfo());
         ControllerAction action = actionMap.get(servletPath);
         if (action != null) {
             if (bDebug) System.out.println(" Found action " + action.getClass().getName());

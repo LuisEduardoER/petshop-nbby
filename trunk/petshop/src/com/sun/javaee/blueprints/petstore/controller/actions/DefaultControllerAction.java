@@ -1,6 +1,3 @@
-/* Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
-$Id: DefaultControllerAction.java,v 1.5 2007/01/11 23:27:47 inder Exp $ */
-
 package com.sun.javaee.blueprints.petstore.controller.actions;
 
 import com.sun.javaee.blueprints.petstore.controller.ControllerAction;
@@ -26,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DefaultControllerAction implements ControllerAction {
 
-    // We use @SuppressWarnings annotation to supress the following kind of warning:
+    // We use @SuppressWarnings annotation to suppress the following kind of warning:
     // petstore/src/java/com/sun/javaee/blueprints/petstore/controller/actions/DefaultControllerAction.java:64: warning: [unchecked] unchecked cast
     // found   : java.lang.Object
     // required: java.util.HashMap<java.lang.String,java.lang.StringBuffer>
@@ -40,10 +37,13 @@ public class DefaultControllerAction implements ControllerAction {
     private static String CACHE = "controller_cache";
     private static String CACHE_TIMES = "controller_cache_times";
     private final ServletContext context;
+
     public DefaultControllerAction(ServletContext context) {
         this.context = context;
     }
-    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String command = request.getParameter("command");
         //if(bDebug) System.out.println("ControllerServlet : command=" + command);

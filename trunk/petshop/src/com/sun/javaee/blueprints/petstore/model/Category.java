@@ -9,31 +9,33 @@ import javax.persistence.Id;
 @Entity
 
 public class Category implements java.io.Serializable {
-    
-    private String categoryID;
+
+	private static final long serialVersionUID = -7182707626337389763L;
+
+	private String categoryID;
     private String name;
     private String description;
     private String imageURL;
-    
+
     public Category() { }
-    
+
     @Id
     public String getCategoryID() {
         return categoryID;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public String getImageURL() {
         return imageURL;
     }
-    
+
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
@@ -46,7 +48,7 @@ public class Category implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }
 
 

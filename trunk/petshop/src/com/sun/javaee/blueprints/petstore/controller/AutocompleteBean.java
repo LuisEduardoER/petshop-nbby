@@ -54,8 +54,8 @@ public class AutocompleteBean {
         List<ZipLocation> zipLocations = catalogFacade.getZipCodeLocations(decodedStr, 0, itemCount);
 
         if (zipLocations == null) {
-            cities =new String[]{"Init Failed"};
-            zips =new String[]{"Init Failed"};
+            cities = new String[] { "Init Failed" };
+			zips = new String[] { "Init Failed" };
             return null;
         }
 

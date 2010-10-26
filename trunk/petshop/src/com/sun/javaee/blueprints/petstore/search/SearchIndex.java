@@ -5,44 +5,43 @@ package com.sun.javaee.blueprints.petstore.search;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.search.Searcher;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.document.Field;
+import org.apache.lucene.search.Searcher;
 
 import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * Base search mechanism for Petstore indexes created from the database data
  * @author basler
  */
 public class SearchIndex {
-    
+
     private static final boolean bDebug=false;
     private List<IndexDocument> hitsList=new ArrayList<IndexDocument>();
     private Hits hits=null;
-    
+
     /** Creates a new instance of SearchIndex */
     public SearchIndex() {
     }
-    
+
     public List<IndexDocument> query(String indexFile, String searchString) {
         return query(indexFile, searchString, "contents");
     }
-        
+
     public List<IndexDocument> query(String indexFile, String searchString, String searchField) {
-        
+
         Searcher searcher=null;
         try {
             searcher=new IndexSearcher(indexFile);
@@ -51,7 +50,7 @@ public class SearchIndex {
             QueryParser queryParser=new QueryParser(searchField, analyzer);
             queryParser.setDefaultOperator(QueryParser.Operator.AND);
             Query query=queryParser.parse(searchString);
-            
+
             PetstoreUtil.getLogger().log(Level.INFO, "search.string", searchString);
 
             // execute search
@@ -63,10 +62,10 @@ public class SearchIndex {
             IndexDocument indexDocument=null;
             for(int ii=0; ii < hits.length(); ii++) {
                 indexDoc=hits.doc(ii);
-                
+
                 // create new holder for research results
                 indexDocument=new IndexDocument();
-                
+
                 fieldx=indexDoc.getField("url");
                 if(fieldx != null) {
                     indexDocument.setPageURL(fieldx.stringValue());
@@ -76,22 +75,22 @@ public class SearchIndex {
                 if(fieldx != null) {
                     indexDocument.setUID(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("summary");
                 if(fieldx != null) {
                     indexDocument.setSummary(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("title");
                 if(fieldx != null) {
                     indexDocument.setTitle(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("image");
                 if(fieldx != null) {
                     indexDocument.setImage(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("price");
                 if(fieldx != null) {
                     indexDocument.setPrice(fieldx.stringValue());
@@ -101,7 +100,7 @@ public class SearchIndex {
                 if(fieldx != null) {
                     indexDocument.setProduct(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("contents");
                 if(fieldx != null) {
                     indexDocument.setContents(fieldx.stringValue());
@@ -111,7 +110,7 @@ public class SearchIndex {
                 if(fieldx != null) {
                     indexDocument.setModifiedDate(fieldx.stringValue());
                 }
-                
+
                 fieldx=indexDoc.getField("tag");
                 if(fieldx != null) {
                     indexDocument.setTag(fieldx.stringValue());
@@ -121,7 +120,7 @@ public class SearchIndex {
                 if(fieldx != null) {
                     indexDocument.setDisabled(fieldx.stringValue());
                 }
-                
+
                 // list all attributes indexed
                 String outx="\nDocument" + indexDoc.toString() + "\n";
 
@@ -134,7 +133,7 @@ public class SearchIndex {
                     }
                     System.out.println(outx);
                 }
-                
+
                 hitsList.add(indexDocument);
             }
         } catch(Exception e) {
@@ -150,23 +149,23 @@ public class SearchIndex {
                 }
             }
         }
-        
+
         return hitsList;
     }
-    
+
     public List<IndexDocument> getHits() {
             return hitsList;
     }
-    
+
     public Hits getHitsNative() {
             return hits;
     }
-    
+
     public static void main(String[] args) {
         // used for unit tests
         SearchIndex si=new SearchIndex();
         // use dummy default index file for unit tests
         si.query("/tmp/tmp/index", "Puppy");
     }
-    
+
 }
