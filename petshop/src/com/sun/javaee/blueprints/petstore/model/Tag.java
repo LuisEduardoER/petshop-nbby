@@ -20,10 +20,10 @@ public class Tag implements java.io.Serializable {
 
 	private static final long serialVersionUID = 2195979784450800640L;
 
-	private int tagID=-1;
-    private Collection<Item> items= new Vector<Item>();
-    private String tag;
-    private int refCount=0;
+	private int tagID = -1;
+	private Collection<Item> items = new Vector<Item>();
+	private String tag;
+	private int refCount = 0;
 
     public Tag() { }
 

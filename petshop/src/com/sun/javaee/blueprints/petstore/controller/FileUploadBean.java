@@ -3,7 +3,6 @@ $Id: FileUploadBean.java,v 1.52 2007/02/24 19:41:08 basler Exp $ */
 
 package com.sun.javaee.blueprints.petstore.controller;
 
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,16 +37,18 @@ import com.sun.javaee.blueprints.petstore.util.PetstoreConstants;
 import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 
 public class FileUploadBean {
-    private boolean bDebug=true;
-    private static final String comma=", ";
-    private List<SelectItem> categories = null;
-    private List<SelectItem> products = null;
-    private CatalogFacade catalogFacade = null;
+    private boolean bDebug = true;
+	private static final String comma = ", ";
+	private List<SelectItem> categories = null;
+	private List<SelectItem> products = null;
+	private CatalogFacade catalogFacade = null;
 
     /**
-     * <p>Factory for response writers that we can use to construct the
-     * outgoing response.</p>
-     */
+	 * <p>
+	 * Factory for response writers that we can use to construct the outgoing
+	 * response.
+	 * </p>
+	 */
     private static ResponseFactory factory = new ResponseFactory();
 
     /**
@@ -64,7 +65,7 @@ public class FileUploadBean {
     }
     public List<SelectItem> getProducts() {
         if (catalogFacade == null) {
-            Map<String,Object> contextMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
+            Map<String, Object> contextMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
             this.catalogFacade = (CatalogFacade)contextMap.get("CatalogFacade");
         }
         //get the catalog facade
@@ -271,8 +272,8 @@ public class FileUploadBean {
                 StringTokenizer stTags=new StringTokenizer(tags, " ");
                 String tagx=null;
                 while(stTags.hasMoreTokens()) {
-                    tagx=stTags.nextToken().toLowerCase();
-                    Tag tag=null;
+                    tagx = stTags.nextToken().toLowerCase();
+					Tag tag = null;
                     if(bDebug) System.out.println("Adding TAG = " + tagx);
                     // see if tag is already in item
                     if(!item.containsTag(tagx)) {

@@ -42,7 +42,7 @@ public class CatalogFacade implements ServletContextListener {
     @Resource
     private UserTransaction utx;
 
-    private static final boolean bDebug=false;
+    private static final boolean bDebug = false;
 
     public CatalogFacade(){ }
 
@@ -344,11 +344,11 @@ public class CatalogFacade implements ServletContextListener {
 
     }
 
-    public Collection doSearch(String querryString){
+    public Collection doSearch(String querryString) {
         EntityManager em = emf.createEntityManager();
         Query searchQuery = em.createNativeQuery("SELECT * FROM Item WHERE (name LIKE ? OR description LIKE ?) AND disabled = 0" );
         searchQuery.setParameter(1, "%"+querryString+"%");
-        searchQuery.setParameter(2,"%"+querryString+"%");
+        searchQuery.setParameter(2, "%"+querryString+"%");
 
         Collection results = searchQuery.getResultList();
         em.close();

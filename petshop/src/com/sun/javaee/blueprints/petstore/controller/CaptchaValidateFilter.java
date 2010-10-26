@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import com.sun.javaee.blueprints.components.ui.fileupload.FileUploadStatus;
 import com.sun.javaee.blueprints.petstore.util.PetstoreUtil;
 
-public class CaptchaValidateFilter implements Filter {
+public class CaptchaValidateFilter implements javax.servlet.Filter {
 
     private static final boolean debug = false;
     private static final String CAPTCHA_FIELD_NAME = "j_captcha_response";

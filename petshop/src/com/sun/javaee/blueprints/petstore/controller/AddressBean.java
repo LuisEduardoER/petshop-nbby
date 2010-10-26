@@ -1,5 +1,10 @@
 package com.sun.javaee.blueprints.petstore.controller;
 
+/**
+ * A simple VO
+ * @author nbby
+ *
+ */
 public class AddressBean {
 
 	private static final boolean bDebug = false;
