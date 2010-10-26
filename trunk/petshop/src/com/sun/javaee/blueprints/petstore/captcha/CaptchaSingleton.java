@@ -7,12 +7,12 @@ package com.sun.javaee.blueprints.petstore.captcha;
  * Singleton facility to create the captcha image
  */
 public class CaptchaSingleton {
-    
+
     private static SimpleCaptcha instance = new SimpleCaptcha();
-    
+
     public static SimpleCaptcha getInstance() {
         return instance;
     }
-    
+
 }
 
