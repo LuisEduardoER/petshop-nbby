@@ -71,7 +71,7 @@
             var valMess="";
 
             // save rich text editor text to element
-            var descx=dojo.widget.byId('rtEditor').getEditorContent()
+            var descx=dojo.widget.byId('rtEditor').getEditorContent();
             var lowDescx=descx.toLowerCase();
 
             // START: check validation
@@ -81,7 +81,7 @@
 
             // make sure there isn't a script/link tag in the description
             if(lowDescx == "" || lowDescx.indexOf("<script") > -1 || lowDescx.indexOf("<link") > -1) {
-            valMess += "Error: The Description must exist and the field can't have a '<script>' and/or a '<link>' tag in it\n";
+            	valMess += "Error: The Description must exist and the field can't have a '<script>' and/or a '<link>' tag in it\n";
             }
 
             // make sure price is a number
@@ -132,7 +132,7 @@
                 dojo.byId('description').value=descx;
 
                 storeCookie()
-               document.forms['TestFileuploadForm'].onsubmit();
+                document.forms['TestFileuploadForm'].onsubmit();
            }
         }
    }

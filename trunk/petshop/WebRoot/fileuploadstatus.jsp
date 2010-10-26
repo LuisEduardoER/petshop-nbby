@@ -1,9 +1,7 @@
 <%-- Copyright 2006 Sun Microsystems, Inc. All rights reserved. You may not modify, use, reproduce, or distribute this software except in compliance with the terms of the License at: http://developer.sun.com/berkeley_license.html
 $Id: fileuploadstatus.jsp,v 1.8 2006/05/05 21:05:47 yutayoshida Exp $ --%>
-
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,11 +24,11 @@ $Id: fileuploadstatus.jsp,v 1.8 2006/05/05 21:05:47 yutayoshida Exp $ --%>
                 var imgNode = document.createElement("img");
                 imgNode.setAttribute("src", thumbpath);
                 divNode.appendChild(imgNode);
-                
+
                 // initialize buttons
                 initButtonImage();
             }
-            
+
             var imageLayerId = new Array();
             var imageLayerG = new Array();
             var imageLayerC = new Array();
@@ -45,12 +43,12 @@ $Id: fileuploadstatus.jsp,v 1.8 2006/05/05 21:05:47 yutayoshida Exp $ --%>
                 imageLayerId[3] ="home"
                 imageLayerG[3]  = "../images/index-thumb-g.jpg";
                 imageLayerC[3]   = "../images/index-thumb.jpg";
-                
+
                 imageText[1] = "Submit another pet";
                 imageText[2] = "Go to your pet page";
                 imageText[3] = "Go back to PetStore home";
              }
-             
+
              function highlightButton(n) {
                  switchButton(true, n);
              }
@@ -108,7 +106,7 @@ $Id: fileuploadstatus.jsp,v 1.8 2006/05/05 21:05:47 yutayoshida Exp $ --%>
         <div id="thumb"></div>
         <br/><br/>
         Would you like to :-<br/><br/>
-        
+
         <div id="popupText" style="position:absolute;z-index:2;border:1px solid;padding:5px;
              border-color:blue;font-size:10pt;background-color:#00ffff;color:blue;display:none"></div>
         <table border="0" cellpadding="4" cellspacing="4">
@@ -129,6 +127,6 @@ $Id: fileuploadstatus.jsp,v 1.8 2006/05/05 21:05:47 yutayoshida Exp $ --%>
         </table>
     </div>
     </center>
-    <jsp:include page="footer.jsp" />    
+    <jsp:include page="footer.jsp" />
     </body>
 </html>
