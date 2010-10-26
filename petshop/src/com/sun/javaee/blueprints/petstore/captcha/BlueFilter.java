@@ -10,12 +10,13 @@ import java.awt.image.RGBImageFilter;
  * @author yuta
  */
 public class BlueFilter extends RGBImageFilter {
-    
+
     /** Creates a new instance of BlueFilter */
     public BlueFilter() {
         canFilterIndexColorModel = true;
     }
-    @Override 
+
+    @Override
     public int filterRGB(int x, int y, int rgb) {
         return (rgb | 0x000000FF);
     }

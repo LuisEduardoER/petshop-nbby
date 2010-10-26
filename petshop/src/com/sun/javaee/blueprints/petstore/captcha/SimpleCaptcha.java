@@ -14,14 +14,13 @@ import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.util.Random;
 
-
 public class SimpleCaptcha {
-    
+
     private Random rd = null;
     private static final int WIDTH = 200;
     private static final int HEIGHT = 60;
     private Color background = new Color(Integer.parseInt("c0c0c0", 16));
-    
+
     protected void drawMessage(Graphics g, String message) {
         g.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
         g.setColor(Color.GRAY);
@@ -33,7 +32,7 @@ public class SimpleCaptcha {
             g.drawString(message.substring(i, i+1), startX+(wgap*i), startY+rd.nextInt(40));
         }
     }
-    
+
     protected void drawRandomLine(Graphics g, int count) {
         while (count>0) {
             drawRandomLine(g);
@@ -47,21 +46,21 @@ public class SimpleCaptcha {
         int y2 = rd.nextInt(60);
         g.drawLine(x1, y1, x2, y2);
     }
-    
+
     /** Creates a new instance of SimpleCaptcha */
     public SimpleCaptcha() {
         this.rd = new Random();
     }
-    
+
     public String generateCaptchaString(int count) {
         RandomString rs = new RandomString();
         return rs.getString(count, "IiOo0");
     }
-    
+
     public BufferedImage getCaptchaImage(String message) {
         return getCaptchaImage(message, WIDTH, HEIGHT);
     }
-    
+
     public BufferedImage getCaptchaImage(String message, int w, int h) {
         BufferedImage bufferImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics g = null;
@@ -76,12 +75,12 @@ public class SimpleCaptcha {
             drawRandomLine(g, 16);
             drawMessage(g, message);
             //g.drawString(message, 15, 40);
-        
+
             ImageProducer source = bufferImg.getSource();
             ImageFilter filter = new BlueFilter();
             ImageProducer producer = new FilteredImageSource(source, filter);
             Image filteredImg = Toolkit.getDefaultToolkit().createImage(producer);
-        
+
             lastBimg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             g2 = lastBimg.getGraphics();
             g2.drawImage(filteredImg, 0, 0, null);
@@ -90,5 +89,5 @@ public class SimpleCaptcha {
             if (g2 != null) g2.dispose();
         }
         return lastBimg;
-    }    
+    }
 }

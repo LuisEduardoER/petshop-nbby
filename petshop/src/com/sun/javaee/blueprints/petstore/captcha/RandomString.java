@@ -6,13 +6,13 @@ package com.sun.javaee.blueprints.petstore.captcha;
 import java.util.Random;
 
 public class RandomString {
-    
+
     private static Random rd = new Random();
-        
+
     public String getString(int count) {
         return getString(count, null);
     }
-    
+
     public String getString(int count, String exclude) {
         if (exclude == null) {
             exclude = "";
@@ -36,9 +36,9 @@ public class RandomString {
         return buf.toString();
     }
     public String getStringfromLong() {
-        
+
         String token = Long.toString(Math.abs(rd.nextLong()), 36);
         return token;
     }
-    
+
 }
